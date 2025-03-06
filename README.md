@@ -15,7 +15,7 @@ Requisitos del Sistema
 
 -Sistema operativo: windows:
 
-Requisitos mínimos : Intel core i3 -6006U @ 2.00GHz Dystem 64 bits
+Requisitos mínimos : Intel core i3 -6006U @ 2.00GHz System 64 bits
 
  
 
