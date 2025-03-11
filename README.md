@@ -1,4 +1,4 @@
-El proyecto lo harenos de una manera progresiva, buscando las
+El proyecto lo haremos de una manera progresiva, buscando las
 
 herramientas necesarias para su desarrollo, crearemos un diagrama de clases donde estaran las clases principales del juego Crearemos un boceto de los personajes jugables, enemigos y los mapas, utilizando las herramientas tiled y Photoshop. El lenguaje de programacion a utilizar es el Java, JavaFX, en el ide vscode donde importaremos diferentes
 
