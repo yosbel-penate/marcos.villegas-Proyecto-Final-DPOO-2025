@@ -78,3 +78,56 @@ package "Mundos" {
   + verificarCondicionesVictoria(): boolean
   + verificarCondicionesDerrota(): boolean
     }
+    Mundo *-- Trampa : composición
+    Mundo *-- Enemigo : composición
+    Mundo *-- Acertijo : composición
+    Mundo *-- Poción : composición
+    Mundo *-- Animación : composición
+    Mundo *-- PersonajeJugable : composición
+
+    class Bosque extends Mundo {
+  + generarMundo(): void
+  + activarTrampas(): void
+  + generarVegetacion(): void
+  + generarTrampasNaturales(): void
+    }
+   
+    class Cementerio extends Mundo {
+  + generarMundo(): void
+  + activarTrampas(): void
+  + invocarZombies(): void
+  + generarTumbas(): void
+    }
+   
+    class Castillo extends Mundo {
+  + generarMundo(): void
+  + activarTrampas(): void
+  + activarMaleficio(): void
+  + generarHabitaciones(): void
+  + colocarPuertas(): void
+    }
+}
+
+' --- Agrupación: Trampas ---
+package "Trampas" {
+    class Trampa {
+        - tipoTrampa: String
+        - daño: int
+        - posicion: Coordenada
+        + activar(): void
+    }
+    Trampa --> Coordenada : "localizada en" [1..1]
+    class HoyoSinFondo extends Trampa {
+        - profundidad: int
+        + eliminarPersonaje(): void
+    }
+    class LaserMortal extends Trampa {
+ - alcance: int
+  + activar(): void
+  + dispararLaser(): void
+    }
+    class PuertaCerrada extends Trampa {
+        - requiereLlave: boolean
+        - acertijoAsociado: Acertijo
+        + desbloquear(llave: Llave): boolean
+    }
