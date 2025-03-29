@@ -1,0 +1,80 @@
+@startuml crypta zombi
+skinparam classMargin 18
+skinparam linetype ortho
+skinparam ClassBackgroundColor<<Personaje>> blue
+skinparam ClassBackgroundColor<<Enemigo>> red
+skinparam ClassBackgroundColor<<Mundo>> green
+
+' --- Clase principal ---
+class Juego {
+ - titulo: String
+ - descripcion: String
+ - mundoActual: Mundo
+ - mundos: List<Mundo>
+ - jugadores: List<PersonajeJugable>
+ + iniciarJuego(): void
+ + terminarJuego(): void
+ + avanzarNivel(): boolean
+ + agregarJugador(jugador: PersonajeJugable): void
+ + eliminarJugador(jugador: PersonajeJugable): void
+ + mostrarEstadisticas(): void
+ + verificarDerrota(): boolean
+}
+
+Juego *-- Mundo : composición
+Juego o-- PersonajeJugable : agregación
+Juego *-- EventoAleatorio : composición
+Juego --> Inventario : "gestiona objetos" [0..*]
+Juego --> PanelEstadisticas : "envía estadísticas" [1..1]
+Juego --> VentanaJuego : "actualiza y visualiza" [1..1]
+Juego --> GestorGuardado : "guarda progreso" [1..1]
+Juego --> GestorSonido : "reproduce sonidos" [1..1]
+
+' --- Clase VentanaJuego ---
+class VentanaJuego {
+ + activar(): void
+ + enviarComandos(): void
+}  
+
+VentanaJuego --> PanelMundo : "muestra" [1..1]
+VentanaJuego --> PanelEstadisticas : "muestra" [1..1]
+VentanaJuego --> ControladorTurnos : "activa" [1..1]
+VentanaJuego --> ControladorAcciones : "envía comandos" [1..*]
+VentanaJuego --> GestorSonido : "reproduce sonidos" [0..1]
+VentanaJuego --> Animación : "activa animaciones" [0..*]
+VentanaJuego --> GestorGuardado : "gestiona progreso" [1..1]
+VentanaJuego --> Juego : "envía comandos de interacción" [1..1]
+
+' --- Clase PanelMundo ---
+class PanelMundo {
+ + visualizarElementos(): void
+}
+ 
+PanelMundo --> Mundo : "visualiza" [1..1]
+PanelMundo --> PersonajeJugable : "muestra" [0..*]
+PanelMundo --> Enemigo : "muestra" [0..*]
+PanelMundo --> Trampa : "visualiza" [0..*]
+PanelMundo --> Coordenada : "utiliza para posicionar" [1..*]
+PanelMundo --> Animación : "muestra animaciones" [0..*]
+
+' --- Agrupación: Mundos ---
+package "Mundos" {  
+  class Mundo {
+  - dimensiones: Matriz[20][20]
+  - tipoAmbiente: String
+  - trampas: List<Trampa>
+  - enemigos: List<Enemigo>
+  - personajes: List<PersonajeJugable>
+  - objetos: List<Object>
+  + generarMundo(): void
+  + agregarPersonaje(personaje: PersonajeJugable): boolean
+  + eliminarPersonaje(personaje: PersonajeJugable): boolean
+  + agregarEnemigo(enemigo: Enemigo): void
+  + eliminarEnemigo(enemigo: Enemigo): void
+  + colocarObjeto(objeto: Object, coordenada: Coordenada): boolean
+  + moverPersonaje(personaje: PersonajeJugable, coordenada: Coordenada): boolean
+  + activarTrampas(): void
+  + actualizarEstado(): void
+  + verificarCondicionesVictoria(): boolean
+  + verificarCondicionesDerrota(): boolean
+    }
