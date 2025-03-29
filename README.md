@@ -6,7 +6,7 @@ un juego de estrategia 20 por turno, donde cada jugador tiene un rango de avance
 
 El juego estara estructurado por una carpeta de ejecucion donde esten las clases principales, otra con los mapas, objetos, personajes y enemigos, otra con el sonido, etc.
 
-La organizacion de la codificacion transcurso del mismo y archivos del proyecto seran organizados segun.
+La organizacion de la codificacion transcurso del mismo y archivos del proyecto seran organizados segun el avance.
 
 Juego de estrategia por turnos: Crypta Zombi
 
