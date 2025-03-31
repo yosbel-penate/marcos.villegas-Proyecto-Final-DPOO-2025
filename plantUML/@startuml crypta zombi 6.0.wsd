@@ -194,3 +194,74 @@ package "Personajes Jugables" {
     }
     
      LadronDeTumbas --> Trampa : "desactiva" [0..1]
+class BrujaOscura extends PersonajeJugable {
+  - habilidad: String = "Lanza hechizos de veneno que dañan con el tiempo"
+  - accionEspecial: String = "Maldecir a un enemigo, reduciendo su daño"
+  + lanzarVeneno(): void
+  + maldecirEnemigo(): void
+    }
+    
+    class ZombieAmistoso extends PersonajeJugable {
+  - habilidad: String = "Atrae a otros zombies para distraerlos"
+  - accionEspecial: String = "Infectar a un enemigo, convirtiéndolo en aliado"
+  + atraerZombies(): void
+  + infectarEnemigo(): void
+}
+   
+    class Explorador extends PersonajeJugable {
+  - habilidad: String = "Movimiento adicional por turno"
+  - accionEspecial: String = "Revelar áreas ocultas del mapa"
+  + movimientoExtra(): void
+  + revelarMapa(): void
+    }
+   
+    Explorador --> Trampa : "revela" [0..*]
+
+    class Sacerdote extends PersonajeJugable {
+  - habilidad: String = "Exorciza enemigos, eliminando zombies con un solo golpe"
+  - accionEspecial: String = "Bendecir a un aliado, aumentando su defensa"
+  + exorcizar(): void
+  + bendecirAliado(): void
+    }
+   
+    class GolemDePiedra extends PersonajeJugable {
+  - habilidad: String = "Ataque de golpe que daña a todos los enemigos adyacentes"
+  - accionEspecial: String = "Bloquear el paso de enemigos"
+  + ataqueGolpe(): void
+  + bloquearPaso(): void
+    }
+   
+   class HechiceroOscuro extends PersonajeJugable {
+  - habilidad: String = "Lanzar hechizos potentes a largo alcance"
+  - accionEspecial: String = "Invocar un Gólem Oscuro para atacar enemigos"
+  + lanzarHechizo(): void
+  + invocarGolemOscuro(): void
+    }
+   
+    class ArqueroElfico extends PersonajeJugable {
+  - habilidad: String = "Disparar flechas precisas a larga distancia"
+  - accionEspecial: String = "Evadir ataques enemigos"
+  + dispararFlechaPrecisa(): void
+  + evadirAtaque(): void
+    }
+   
+    class GuerreroDraconico extends PersonajeJugable {
+  - habilidad: String = "Aliento de fuego que daña múltiples cuadros"
+  - accionEspecial: String = "Golpe con cola que empuja enemigos"
+  + alientoDeFuego(): void
+  + golpeConCola(): void
+    }
+}
+
+' --- Agrupación: Enemigos ---
+package "Enemigos" { 
+  abstract class Enemigo {
+        - nombre: String
+        - rango: String
+        - daño: int
+        - salud: int
+        - habilidadesEspeciales: List<String>
+        - debilidad: String
+        + atacar(): void
+        + usarHabilidad(): void
+    }
