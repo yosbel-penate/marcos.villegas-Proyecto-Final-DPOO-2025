@@ -131,3 +131,66 @@ package "Trampas" {
         - acertijoAsociado: Acertijo
         + desbloquear(llave: Llave): boolean
     }
+' --- Clase Acertijo ---
+class Acertijo {
+ - descripcion: String
+ - dificultad: String
+ + resolver(aciertos: int): boolean
+}
+PuertaCerrada *-- Acertijo : composición
+}
+' --- Agrupación: Personajes Jugables ---
+package "Personajes Jugables" {
+   abstract class PersonajeJugable {
+        - nombre: String
+        - rango: String
+        - daño: int
+        - salud: int
+        - movimientoPorTurno: int
+        - habilidadesEspeciales: List<String>
+        + mover(cuadros: int): void
+        + atacar(): void
+        + usarHabilidadEspecial(): void
+    }
+    PersonajeJugable --> Inventario : "posee" [1..1]
+    PersonajeJugable --> Trampa : "interactúa con" [0..*]
+    PersonajeJugable --> Llave : "recolecta" [0..*]
+    PersonajeJugable --> Enemigo : "ataca" [0..*]
+    PersonajeJugable --> GestorSonido : "genera sonidos" [1..*]
+   
+    class CazadorDeZombies extends PersonajeJugable {
+  - habilidad: String = "Disparo de escopeta (daño alto en un rango de 2 cuadros)"
+  - accionEspecial: String = "Colocar trampas para zombies"
+  + dispararEscopeta(): void
+  + colocarTrampa(): void
+    }
+    
+    class MedicoDeCampo extends PersonajeJugable {
+  - habilidad: String = "Cura a aliados en un rango de 3 cuadros"
+  - accionEspecial: String = "Revivir a un personaje caído una vez por partida"
+  + curarAliados(): void
+  + revivirPersonaje(): void
+    }
+   
+    class Nigromante extends PersonajeJugable {
+  - habilidad: String = "Invoca esqueletos aliados para luchar"
+  - accionEspecial: String = "Controlar a un zombie por un turno"
+  + invocarEsqueleto(): void
+  + controlarZombie(): void
+    }
+   
+    class CaballeroFantasma extends PersonajeJugable {
+  - habilidad: String = "Ataque de espada que ignora armaduras"
+  - accionEspecial: String = "Teletransportarse a cualquier cuadro vacío"
+  + ataqueEspada(): void
+  + teletransportarse(): void
+    }
+  
+    class LadronDeTumbas extends PersonajeJugable {
+  - habilidad: String = "Roba objetos de los enemigos"
+  - accionEspecial: String = "Desactivar trampas"
+  + robarObjeto(): void
+  + desactivarTrampa(): void
+    }
+    
+     LadronDeTumbas --> Trampa : "desactiva" [0..1]
