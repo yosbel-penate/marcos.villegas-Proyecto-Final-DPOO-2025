@@ -265,3 +265,102 @@ package "Enemigos" {
         + atacar(): void
         + usarHabilidad(): void
     }
+Enemigo --> Animación : "provoca" [1..*]
+    Enemigo --> Trampa : "afectado por" [0..*]
+    Enemigo --> GestorSonido : "genera sonidos" [1..*]
+   
+    class ZombieComun extends Enemigo {
+  - habilidad: String = "Ataca a los personajes en cuadros adyacentes"
+  - debilidad: String = "Movimiento lento"
+  + atacarCortoRango(): void
+    }
+    
+    class ZombieCorredor extends Enemigo {
+  - habilidad: String = "Se mueve el doble de rápido que otros zombies"
+  - debilidad: String = "Menos resistencia"
+  + atacarRapido(): void
+    }
+    
+    class EsqueletoArmado extends Enemigo {
+  - habilidad: String = "Lanza flechas desde lejos"
+  - debilidad: String = "Vulnerable a ataques cuerpo a cuerpo"
+  + lanzarFlecha(): void
+    }
+   
+    class Fantasma extends Enemigo {
+  - habilidad: String = "Atraviesa paredes y maldice a los personajes"
+  - debilidad: String = "Solo puede ser dañado con ataques mágicos"
+  + maldecir(): void
+}
+    class NecromanteEnemigo extends Enemigo {
+  - habilidad: String = "Invoca zombies y esqueletos"
+  - debilidad: String = "Baja defensa"
+  + invocarMinion(): void 
+  }
+   
+    class ReyEspectral extends Enemigo {
+  - habilidad: String = "Invoca guardianes y lanza rayos oscuros"
+  - debilidad: String = "Vulnerable a ataques masivos"
+  + invocarGuardianes(): void
+  + usarRayoOscuro(): void
+  + activarMaldicionFinal(): void
+    } 
+    }
+
+
+ '--- Clases Misceláneas ---
+package "ClasesMisceláneas" { 
+  class Coordenada {
+        - x: int
+        - y: int
+        + setCoordenada(newX: int, newY: int): void
+        + getX(): int
+        + getY(): int
+        + esIgual(otra: Coordenada): boolean
+        + distanciaA(otra: Coordenada): double
+        + mover(deltaX: int, deltaY: int): void
+        + estaDentroDeLimites(limiteX: int, limiteY: int): boolean
+    }
+    class Animación {
+        - tipoAnimacion: String
+        - duracion: int
+        + reproducir(): void
+        + detener(): void
+    }
+    class Inventario {
+        - objetos: List<Object>
+        - limite: int = 10
+        + agregarObjeto(objeto: Object): boolean
+        + eliminarObjeto(objeto: Object): void
+        + listarObjetos(): List<Object>
+    }
+    Inventario *-- Poción : composición
+    Inventario o-- Llave : agregación
+    class Poción {
+        - tipo: String
+        - efecto: String
+        - cantidad: int
+        + usar(): void
+    }
+    class Llave {
+        - idLlave: String
+        - tipoLlave: String
+        + usarLlave(): boolean
+    }
+    class GestorGuardado {
+        + guardarPartida(): void
+        + cargarPartida(): void
+    }
+    class GestorSonido {
+        + reproducirEfecto(): void
+        + detenerSonido(): void
+    }
+}
+
+' --- Relaciones adicionales ---
+EventoAleatorio o-- PersonajeJugable : agregación
+EventoAleatorio o-- Enemigo : agregación
+EventoAleatorio *-- Trampa : composición
+EventoAleatorio *-- Poción : composición
+
+@enduml
