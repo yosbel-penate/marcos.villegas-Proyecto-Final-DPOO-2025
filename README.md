@@ -16,6 +16,7 @@ JDK 21
 -Sistema operativo: windows:
 
 Requisitos mínimos : Intel core i3  
+DESCARFAR ARCHIVO RAR CRYPTA ZOMBIE FINAL  Y ABIRLO EN VISUAL STUDIO CODE
 
  
 
