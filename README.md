@@ -19,7 +19,8 @@ Requisitos mínimos : Intel core i3
 DESCARFAR ARCHIVO RAR CRYPTA ZOMBIE FINAL  Y ABIRLO EN VISUAL STUDIO CODE
 
  Tareas del equipo de dearrollo
- Lider Marcos Lucio encargado de la supervision ,planificacion , la encaminacion , estructuracion del proyecto ademas de detectar errores potenciales. Tambien la innstruccion y ayuda al equipo de desarrollo, implementando las clases shadowhunter , windsorcer, alchimist, PlayerCharacter, Abstract Player , KeyHandler,
+
+ Lider Marcos Lucio encargado de la supervision ,planificacion(UML) , la encaminacion , estructuracion del proyecto ademas de detectar errores potenciales. Tambien la innstruccion y ayuda al equipo de desarrollo, implementando las clases shadowhunter , windsorcer, alchimist, PlayerCharacter, Abstract Player , KeyHandler,
 
  Janier Soca Se encargo de la codificacion de las clases zombie hunter , tombraider, stonegolem, esqueletoarmado, necromante enemigo, fantasma, zombie corredor, zombie comun enemy, game panel , game maseege, game frame, ademas de ayudar a lazaro con el game logic .
 
