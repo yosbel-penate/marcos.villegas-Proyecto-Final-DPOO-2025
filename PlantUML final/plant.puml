@@ -1,0 +1,312 @@
+@startuml classdiagram
+' filepath: f:\Zombie\src\plant.puml
+
+class Main {
+    +main(String[] args)
+}
+class GameFrame {
+    -menuAudio : Clip
+    +sprites : Map~String, Image~
+    -weaponSprite : Image
+    +GameFrame()
+    -loadSprites()
+    -loadWeaponSprite()
+    +initMenu()
+    -playMenuAudio(String audioFilePath)
+    -stopMenuAudio()
+    -showCharacterAndEnemyInfo()
+}
+class BackgroundPanel {
+    -backgroundImage : Image
+    -weaponSprite : Image
+    -weaponPosition : Point
+    +paintComponent(Graphics g)
+}
+class GamePanel {
+    -doorImage : Image
+    -keyImage : Image
+    -healthPotionImage : Image
+    -damagePotionImage : Image
+    -pitfallImage : Image
+    -laserImage : Image
+    -lockedDoorImage : Image
+    -weaponSprite : Image
+    -menuAudioClip : Clip
+    -obstacleSprites : Map~String, Image~
+    -backgroundImages : Map~String, Image~
+    -worldAudioPaths : Map~String, String~
+    -playerSprites : Map~String, Image~
+    -enemySprites : Map~String, Image~
+    +GamePanel(Map~String, Image~ obstacleSprites, Image weaponSprite)
+    +removeNotify()
+    +paintComponent(Graphics g)
+    -drawGame(Graphics g)
+    -getWorldKey(String world)
+    -getPlayerColor(String classType)
+}
+class KeyHandler {
+    +keyPressed(KeyEvent e)
+}
+class GameLogic {
+    -instance : GameLogic
+    +TILE_SIZE : int
+    +BOARD_SIZE : int
+    -MAX_LEVELS : int
+    -numPlayers : int
+    -players : ArrayList~PlayerCharacter~
+    -enemies : ArrayList~Enemy~
+    -items : ArrayList~Item~
+    -sharedInventory : ArrayList~Item~
+    -keys : ArrayList~Item~
+    -obstacles : ArrayList~Point~
+    -traps : ArrayList~Trap~
+    -gameMessages : ArrayList~GameMessage~
+    -turnOrder : ArrayList~Object~
+    -currentTurnIndex : int
+    -currentRound : int
+    -currentLevel : int
+    -isGameRunning : boolean
+    -movesLeft : int
+    -hasAttacked : boolean
+    -weaponSprite : Image
+    -gamePanel : GamePanel
+    -gameFrame : GameFrame
+    -riddles : ArrayList~Riddle~
+    -currentWorld : String
+    -worldObstacleColor : Color
+    -worldBackgroundColor : Color
+    +getInstance() : GameLogic
+    +setGamePanel(GamePanel gamePanel)
+    +setGameFrame(GameFrame gameFrame)
+    +setWeaponSprite(Image weaponSprite)
+    +getWeaponSprite() : Image
+    +notifyRepaint()
+    +initPlayersAndStartGame(JFrame frame, Map~String, Image~ obstacleSprites, Image weaponSprite)
+    -createPlayer(String name, String classType, int x, int y) : PlayerCharacter
+    -startGame(JFrame frame, Map~String, Image~ obstacleSprites, Image weaponSprite)
+    +initGame()
+    -updateTurnOrder()
+    +initRiddles()
+    +advanceToNextLevel(JFrame frame)
+    -proceedToNextLevel(JFrame frame)
+    +showError(String message)
+    +isOccupied(int x, int y) : boolean
+    -isTileOccupied(int x, int y) : boolean
+    +createKey(String name) : Item
+    +spawnKey()
+    +interactWithTrap(PlayerCharacter player, JFrame frame)
+    +canAttack(PlayerCharacter player) : boolean
+    -enemyTurn(Enemy enemy)
+    +skeletonAllyTurn(PlayerCharacter skeleton)
+    +endTurn()
+    -handleGameOver()
+    +spawnEnemiesForLevel(int level)
+    +spawnTrapsForLevel(int level)
+    +returnToMenu(JFrame frame)
+    +getPlayers() : ArrayList~PlayerCharacter~
+    +getEnemies() : ArrayList~Enemy~
+    +getItems() : ArrayList~Item~
+    +getSharedInventory() : ArrayList~Item~
+    +getKeys() : ArrayList~Item~
+    +getObstacles() : ArrayList~Point~
+    +getTraps() : ArrayList~Trap~
+    +getGameMessages() : ArrayList~GameMessage~
+    +getTurnOrder() : ArrayList~Object~
+    +getCurrentTurnIndex() : int
+    +getCurrentRound() : int
+    +isGameRunning() : boolean
+    +getMovesLeft() : int
+    +setMovesLeft(int movesLeft)
+    +hasAttacked() : boolean
+}
+class PlayerCharacter {
+}
+class Enemy {
+}
+class Item {
+    -name : String
+    -x : int
+    -y : int
+    -isConsumable : boolean
+    -isWeapon : boolean
+    -effectValue : int
+    +Item(String name, int x, int y, boolean isConsumable, boolean isWeapon, int effectValue)
+    +getName() : String
+    +getX() : int
+    +getY() : int
+    +isConsumable() : boolean
+    +isWeapon() : boolean
+    +getEffectValue() : int
+}
+class Trap {
+    -type : String
+    -x : int
+    -y : int
+    -isActive : boolean
+    +Trap(String type, int x, int y)
+    +getType() : String
+    +getX() : int
+    +getY() : int
+    +isActive() : boolean
+    +setActive(boolean active)
+    +checkConflictWithDoor(int doorX, int doorY)
+    +interactWithTrap(PlayerCharacter player)
+}
+class GameMessage {
+    -text : String
+    +GameMessage(String text)
+    +getText() : String
+}
+class Riddle {
+    -question : String
+    -answer : String
+    -options : String[]
+    +Riddle(String question, String answer, String[] options)
+    +getQuestion() : String
+    +getAnswer() : String
+    +getOptions() : String[]
+}
+class AbstractPlayer {
+    #name : String
+    #classType : String
+    #x : int
+    #y : int
+    #health : int
+    #maxHealth : int
+    #damage : int
+    #range : int
+    #maxMoves : int
+    #isInvisible : boolean
+    #hasSpecialUsed : boolean
+    +AbstractPlayer(String name, String classType, int x, int y)
+    #initializeStats()
+    +getX() : int
+    +getY() : int
+    +setX(int x)
+    +setY(int y)
+    +getHealth() : int
+    +setHealth(int health)
+    +getMaxHealth() : int
+    +getDamage() : int
+    +setDamage(int damage)
+    +getRange() : int
+    +getMaxMoves() : int
+    +isInvisible() : boolean
+    +setInvisible(boolean invisible)
+    +getClassType() : String
+    +getName() : String
+    +hasSpecialUsed() : boolean
+    +setSpecialUsed(boolean specialUsed)
+    +attack(PlayerCharacter player)
+    +useSpecial()
+    +useSecondSpecial()
+}
+class ZombieHunter {
+}
+class FieldMedic {
+}
+class Necromancer {
+}
+class GhostKnight {
+}
+class TombRaider {
+}
+class DarkWitch {
+}
+class FriendlyZombie {
+}
+class Explorer {
+}
+class Priest {
+}
+class StoneGolem {
+}
+class Gunner {
+}
+class Alchemist {
+}
+class Berserker {
+}
+class WindSorcerer {
+}
+class ShadowHunter {
+}
+class Paladin {
+}
+class Druid {
+}
+class Engineer {
+}
+class Monk {
+}
+class Arcanista {
+}
+class AlliedSkeleton {
+}
+class ZombieComun {
+}
+class ZombieCorredor {
+}
+class EsqueletoArmado {
+}
+class Fantasma {
+}
+class NecromanteEnemigo {
+}
+
+' Relaciones
+Main -- GameFrame : crea y usa (1 a 1)
+GameFrame --* BackgroundPanel : contiene (Composición)
+GameFrame --* GamePanel : contiene (Composición)
+
+
+' Dependencias
+KeyHandler ..> PlayerCharacter : usa
+KeyHandler ..> Enemy : usa
+KeyHandler ..> Item : usa
+GamePanel ..> PlayerCharacter : usa
+GamePanel ..> Enemy : usa
+GamePanel ..> Item : usa
+GameFrame ..> GameLogic : usa
+KeyHandler ..> GameLogic : maneja la entrada para (1 a 1)
+GameLogic ..> GamePanel : usa 
+GameLogic ..> GameFrame : usa 
+
+' Agregación
+GameLogic "1" o-- "*" PlayerCharacter : gestiona
+GameLogic "1" o-- "*" Enemy : gestiona
+GameLogic "1" o-- "*" Item : gestiona
+GameLogic "1" o-- "*" Trap : gestiona
+GameLogic "1" o-- "*" GameMessage : gestiona
+GameLogic "1" o-- "*" Riddle : gestiona
+
+' Herencia
+AbstractPlayer <|-- ZombieHunter : es un
+AbstractPlayer <|-- FieldMedic : es un
+AbstractPlayer <|-- Necromancer : es un
+AbstractPlayer <|-- GhostKnight : es un
+AbstractPlayer <|-- TombRaider : es un
+AbstractPlayer <|-- DarkWitch : es un
+AbstractPlayer <|-- FriendlyZombie : es un
+AbstractPlayer <|-- Explorer : es un
+AbstractPlayer <|-- Priest : es un
+AbstractPlayer <|-- StoneGolem : es un
+AbstractPlayer <|-- Gunner : es un
+AbstractPlayer <|-- Alchemist : es un
+AbstractPlayer <|-- Berserker : es un
+AbstractPlayer <|-- WindSorcerer : es un
+AbstractPlayer <|-- ShadowHunter : es un
+AbstractPlayer <|-- Paladin : es un
+AbstractPlayer <|-- Druid : es un
+AbstractPlayer <|-- Engineer : es un
+AbstractPlayer <|-- Monk : es un
+AbstractPlayer <|-- Arcanista : es un
+AbstractPlayer <|-- AlliedSkeleton : es un
+Enemy <|-- ZombieComun : es un
+Enemy <|-- ZombieCorredor : es un
+Enemy <|-- EsqueletoArmado : es un
+Enemy <|-- Fantasma : es un
+Enemy <|-- NecromanteEnemigo : es un
+PlayerCharacter <|-- AbstractPlayer : es un
+
+@enduml
