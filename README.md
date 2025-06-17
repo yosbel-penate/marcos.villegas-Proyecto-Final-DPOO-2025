@@ -16,7 +16,7 @@ JDK 21
 -Sistema operativo: windows:
 
 Requisitos mínimos : Intel core i3  
-DESCARFAR ARCHIVO RAR CRYPTA ZOMBIE FINAL  Y ABIRLO EN VISUAL STUDIO CODE
+DESCARFAR ARCHIVO RAR CRYPTA ZOMBIE FINAL  Y ABIRLO EN VISUAL STUDIO CODE, Debes tener instalado JDK SE 21 en la pc. Configure la pc Y el Visual para JDK 21, Para ello cambie o agregue la direccion del jdk instaladoA en el JavaHome que se encuentra en variables de entorno de desarrollo y luego el path colocandole %JAVA_HOME%\bin,puedes poner en busqueda editar variable de entorno y todo sale intuitivoluego configura el path en visual , de ser necesario edite el setting json.
 
  Tareas del equipo de dearrollo
  
